@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+   
+    <title>Login</title>
+    <style>
+        /* CSS styles */
+        body {
+    margin: 0;
+    padding: 0;
+    background-image: url(pic1.gif); /* Path to your image file */
+    background-repeat: no-repeat; /* Prevents the background image from repeating */
+    background-position: center; /* Centers the background image horizontally and vertically */
+    background-size: cover; /* Ensures the background image covers the entire background */
+    font-family: Arial, sans-serif; /* Example font family */
+    height:100vh;
+    
+}
+.container {
+    max-width: 400px;
+    margin: 150px auto; /* Center the container horizontally and move it down */
+    margin-left: 350px; /* Move the container to the left */
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent white background */
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+h1 {
+    text-align: left; /* Align the text to the left */
+    font-style: italic; /* Make the text italic */
+    color: #e81244; /* Change the color to orange (you can use any color code you prefer) */
+    margin-top: 50px; /* Adjust the top margin for positioning */
+    margin-left: 350px; /* Move the heading to the left */
+}
+        h2 {
+            text-align: center;
+            font-style: italic;
+            color: rgb(230, 11, 73);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 3px;
+        }
+        input[type="text"],
+        input[type="password"] {
+            width: 90%;
+            padding: 10px;
+            border: 1px solid #cb8989;
+            border-radius: 5px;
+        }
+        button {
+            width: 90%;
+            padding: 10px;
+            background-color: #e1396e;
+            color: #120606;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: top 10px;
+        }
+        button:hover {
+            background-color: #e71655;
+        }
+        .forgot-password {
+    text-align: left; /* Align text to the left*/ 
+    margin-top: -120px; /* Adjust top margin */
+    margin-right: 120px; /* Adjust left margin */
+}
+
+.forgot-password button {
+    background: none;
+    border: none;
+    color: rgb(239, 35, 154);
+    text-decoration: underline;
+    cursor: pointer;
+    font-style: italic; /* Make the text italic */
+    font-size: 18px; /* Increase the font size */
+}
+    </style>
+</head>
+<body>
+    <!-- Background music -->    
+    <audio autoplay loop>
+        <source src="musi.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <h1>Looking for Date?&#128522;&#128521;</h1>
+    <div class="container">
+        <h2>Login</h2>
+        <form id="login-form" onsubmit="event.preventDefault(); loginUser();">
+            
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit">Login</button> 
+         </div>
+    </form>
+    <div class="forgot-password">
+        <button onclick="window.location.href='forgot.html'">Forgot your password?</button>
+    </div>
+
+    <script>
+        function loginUser() {
+            // Get the username and password from the form
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+    
+            // Fetch credentials from JSON file
+            fetch('login.json')
+            .then(response => response.json())
+            .then(data => {
+                const user = data.find(user => user.username === username && user.password === password);
+                // Check if the entered username and password match the credentials from JSON
+                if (user) {
+                    // Redirect to dating.html after successful login
+                    window.location.href = "dating2.html";
+                } else {
+                    alert("Invalid username or password. Please try again.");
+                    // Clear the password field
+                    document.getElementById("password").value = "";
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching login data:', error);
+            });
+        }
+    </script>
+</body>
+</html>

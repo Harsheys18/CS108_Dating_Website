@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+   
+    <title>Welcome to Love Connect</title>
+    <style>
+        /* CSS for styling the page */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+            background-image: url('pic10.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        h1 {
+            color: #e10842;
+            font-size: 88px;
+            text-transform: uppercase;
+            letter-spacing: -15px;
+            margin: 0;
+            line-height: 1;
+            font-style: italic;
+        }
+        .letter {
+            display: inline-block;
+            position: relative;
+            transform: translateY(-100%);
+            opacity: 0;
+            transition: opacity 0.8s, transform 0.8s;
+        }
+        p {
+            color: #cdf909;
+            font-size: 34px;
+            margin-top: 20px;
+            opacity: 0;
+            transition: opacity 0.8s;
+            font-style:italic
+        }
+        .login-link {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: #080303;
+            text-decoration: none;
+            font-size: 18px;
+            text-transform: uppercase;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+      <!-- Background music -->
+      <audio autoplay loop>
+        <source src="musi.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <!-- Login link -->
+    <a href="login.html" class="login-link">Login</a>
+    <!-- Welcome content -->
+    <h1 id="welcome-message">
+        <span class="letter">W</span>
+        <span class="letter">e</span>
+        <span class="letter">l</span>
+        <span class="letter">c</span>
+        <span class="letter">o</span>
+        <span class="letter">m</span>
+        <span class="letter">e</span>
+        <span class="letter">&nbsp;</span>
+        <span class="letter">t</span>
+        <span class="letter">o</span>
+        <span class="letter">&nbsp;</span>
+
+        <span class="letter">M</span>
+        <span class="letter">a</span>
+        <span class="letter">t</span>
+        <span class="letter">c</span>
+        <span class="letter">h</span>
+        <span class="letter">&nbsp;</span>
+        <span class="letter">M</span>
+        <span class="letter">i</span>
+        <span class="letter">n</span>
+        <span class="letter">g</span>
+        <span class="letter">l</span>
+        <span class="letter">e</span>
+    </h1>
+
+    <!-- Additional message -->
+    <p id="additional-message">Where Singles Mingle.!</p>
+
+    <script>
+        // JavaScript to animate letters falling down
+        const letters = document.querySelectorAll('.letter');
+        const additionalMessage = document.getElementById('additional-message');
+
+        // Function to animate each letter
+        function animateLetters() {
+            letters.forEach((letter, index) => {
+                setTimeout(() => {
+                    letter.style.transform = 'translateY(0)';
+                    letter.style.opacity = '1';
+                }, 100 * index); // Delay each letter by 100ms
+            });
+
+            // Show additional message after all letters have fallen
+            setTimeout(() => {
+                additionalMessage.style.opacity = '1';
+            }, 100 * letters.length); // Wait until all letters have fallen
+        }
+
+        // Call the function after a short delay
+        setTimeout(animateLetters, 1000); // Start animation after 1000ms (1 second)
+    </script>
+</body>
+</html>

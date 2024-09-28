@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Find Your Match</title>
+    <style>
+        /* CSS styles */
+        body {
+    font-family: Arial, sans-serif;
+    /* Adding a background image */
+    background-image: url('pic5.jpg');
+    
+    /* Making sure the background image covers the entire area */
+    background-size: cover;
+
+    /* Positioning the image at the center */
+    background-position: center;
+
+    /* Preventing the image from repeating */
+    background-repeat: no-repeat;
+
+    /* Optionally, you can add a fallback color for when the image isn't available */
+    background-color: #f4f4f4;
+
+    margin: 0;
+    padding: 0;
+}
+
+        .dating-container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.2) ;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="email"],
+        select {
+            width: 90%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #f36c6c;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 90%;
+            padding: 10px;
+            background-color: #e63981;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        button:hover {
+            background-color: #f00548;
+        }
+
+        /* Additional styles for checkboxes */
+        .hobbies {
+            margin-bottom: 10px;
+        }
+
+        .hobbies label {
+            display: inline-block;
+            margin-right: 10px;
+        }
+        
+        .interests {
+            margin-bottom: 10px;
+        }
+
+        .interests label {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        /* Profiles styles */
+        .container {
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .profile {
+            width: 300px;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile img {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        .profile-details {
+            margin-top: 20px;
+        }
+
+        .profile-details h2 {
+            margin-top: 0;
+        }
+
+        .profile-details p {
+            margin: 5px 0;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            text-decoration: none;
+            color: rgb(255, 0, 144);
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+      <!-- Background music -->    
+      <audio autoplay loop>
+        <source src="musi.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <div class="dating-container">
+        <h2>Find Your Match</h2>
+        <form id="dating-form" onsubmit="event.preventDefault(); findPerfectMatch();">
+            <input type="text" id="roll-number" placeholder="IITB Roll Number" required>
+            <input type="text" id="name" placeholder="Name" required>
+            <input type="text" id="year-of-study" placeholder="Year of Study" required>
+            <input type="number" id="age" placeholder="Age" required>
+            <label for="gender">Gender:</label>
+            <select id="gender" required>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+            <input type="email" id="email" placeholder="Email" required>
+            <p>Interests:</p>
+            <div class="interests">
+                <label><input type="checkbox" id="traveling" value="Traveling" name="interests">Traveling</label>
+                <label><input type="checkbox" id="sports" value="Sports" name="interests">Sports</label>
+                <label><input type="checkbox" id="movies" value="Movies" name="interests">Movies</label>
+                <label><input type="checkbox" id="music" value="Music" name="interests">Music</label>
+                <label><input type="checkbox" id="literature" value="Literature" name="interests">Literature</label>
+                <label><input type="checkbox" id="technology" value="Technology" name="interests">Technology</label>
+                <label><input type="checkbox" id="fashion" value="Fashion" name="interests">Fashion</label>
+                <label><input type="checkbox" id="art" value="Art" name="interests">Art</label>
+            </div>
+            <p>Hobbies:</p>
+            <div class="hobbies">
+                <label><input type="checkbox" id="reading" value="Reading" name="hobbies">Reading</label>
+                <label><input type="checkbox" id="cooking" value="Cooking" name="hobbies">Cooking</label>
+                <label><input type="checkbox" id="coding" value="Coding" name="hobbies">Coding</label>
+                <label><input type="checkbox" id="Watching Youtube/Instagram" value="watching youtube/instagram" name="hobbies">Watching youtube/instagram</label>
+                <label><input type="checkbox" id="painting" value="Painting" name="hobbies">Painting</label>
+                <label><input type="checkbox" id="gardening" value="Gardening" name="hobbies">Gardening</label>
+                <label><input type="checkbox" id="playing musical instrument" value="Playing musical instrument" name="hobbies">playing musical instrument</label>
+            
+
+            </div>
+            <button type="submit" id="find-match-button">Find Match</button>
+        </form>
+        <!-- Logout button -->
+        <button onclick="logout()">Logout</button>
+        <!-- Scroll button to profiles section -->
+        <button onclick="scrollbro()">scroll</button>
+        
+    </div>
+    <script>
+        // JavaScript code for finding a perfect match
+
+        // Logout function
+        function logout() {
+            // Implement logout functionality here
+            alert('Logging out...');
+            window.location.href = "login.html";
+        };
+    
+        function scrollbro() {
+            window.location.href = "scrolling.html";
+        };
+
+        function getCheckedValues(id) {
+            const checkboxes = document.querySelectorAll(`input[name=${id}]:checked`);
+            return Array.from(checkboxes).map(checkbox => checkbox.value);
+        };
+
+        function displayMatch(match) {
+            localStorage.setItem('matchDetails', JSON.stringify(match));
+            window.location.href = "match.html";
+            const matchDetails = document.querySelector('.match-details');
+            matchDetails.innerHTML = `
+                <img src="${match.Photo}" alt="Match Photo">
+                <h2>${match.Name}</h2>
+                <p>Age: ${match.Age}</p>
+                <p>Gender: ${match.Gender}</p>
+                <p>Interests: ${match.Interests.join(', ')}</p>
+                <p>Hobbies: ${match.Hobbies.join(', ')}</p>
+                <p>Email: ${match.Email}</p>
+            `;
+        };
+
+        function findPerfectMatch() {
+            fetch('students.json')
+                .then(response => response.json())
+                .then(matchData => {
+                    const formData = {
+                        name: document.getElementById('name').value,
+                        yearOfStudy: document.getElementById('year-of-study').value,
+                        age: parseInt(document.getElementById('age').value),
+                        gender: document.getElementById('gender').value,
+                        interests: getCheckedValues('interests'),
+                        hobbies: getCheckedValues('hobbies')
+                    };
+
+                    let potentialMatchesToShow = matchData.filter(match => match.Gender !== formData.gender);
+                    let bestMatch = null;
+                    let bestMatchScore = 0;
+
+                    potentialMatchesToShow.forEach(match => {
+                        const sharedInterests = formData.interests.filter(interest => match.Interests.includes(interest)).length;
+                        const sharedHobbies = formData.hobbies.filter(hobby => match.Hobbies.includes(hobby)).length;
+                        matchScore = sharedInterests + sharedHobbies;
+
+                        if (matchScore > bestMatchScore) {
+                            bestMatch = match;
+                            bestMatchScore = matchScore;
+                        };
+                        console.log(matchScore);
+                    });
+
+                    if (bestMatchScore != 0) {
+                        displayMatch(bestMatch);
+                    } else {
+                        alert("Sorry, no suitable match found!");
+                    }
+                })
+                .catch(error => console.error('Error fetching match data:', error));
+        }
+
+    </script>
+    
+</body>
+</html>
+    

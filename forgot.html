@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+   
+    <title>Forgot Password</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+     <!-- Background music -->
+     <audio autoplay loop>
+        <source src="musi.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <div class="forgot-container">
+        <h2>Forgot Password?</h2>
+        <form id="forgot-form">
+            <input type="text" id="username" placeholder="Username" required>
+            <div id="secret-question" style="display: none;"></div>
+            <input type="text" id="answer" placeholder="Answer to secret question" style="display: none;" required>
+            <button type="submit" id="submit-btn" style="display: none;">Submit</button>
+            <div id="password" style="display: none;"></div>
+            <button type="button" id="get-question-btn">Get Secret Question</button>
+        </form>
+        <div id="error-message"></div>
+    </div>
+
+    <script>
+        document.getElementById('get-question-btn').addEventListener('click', function() {
+            var username = document.getElementById('username').value;
+            document.getElementById('get-question-btn').style.display = 'none'; // Hide the button
+
+
+            var users = [
+                {"username": "raju1990", "password": "raju@123", "secret_question": "What is your mother's maiden name?", "secret_answer": "Patel"},
+                {"username": "meena_sharma", "password": "meena@2022", "secret_question": "What is your favorite childhood nickname?", "secret_answer": "Mona"},
+                {"username": "amit_delhi", "password": "amit1234", "secret_question": "What is your favorite food?", "secret_answer": "Paneer Tikka"},
+                {"username": "deepa_mumbai", "password": "deepa@789", "secret_question": "What is the name of your first pet?", "secret_answer": "Tommy"},
+                {"username": "arjun_bangalore", "password": "arjun@567", "secret_question": "What is your favorite holiday destination?", "secret_answer": "Goa"}
+            ];
+
+            var found = false;
+            var secretQuestion = "";
+
+            for (var i = 0; i < users.length; i++) {
+                if (username === users[i].username) {
+                    found = true;
+                    secretQuestion = users[i].secret_question;
+                    break;
+                }
+            }
+
+            if (found) {
+                document.getElementById('secret-question').innerText = secretQuestion;
+                document.getElementById('secret-question').style.display = 'block';
+                document.getElementById('error-message').innerText = '';
+                document.getElementById('answer').style.display = 'block';
+                document.getElementById('submit-btn').style.display = 'block';
+            } else {
+                document.getElementById('secret-question').style.display = 'none';
+                document.getElementById('answer').style.display = 'none';
+                document.getElementById('submit-btn').style.display = 'none';
+                document.getElementById('password').style.display = 'none';
+                document.getElementById('error-message').innerText = 'Invalid username';
+            }
+        });
+
+        document.getElementById('forgot-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            var username = document.getElementById('username').value;
+            var answer = document.getElementById('answer').value;
+
+            var users = [
+                {"username": "raju1990", "password": "raju@123", "secret_question": "What is your mother's maiden name?", "secret_answer": "Patel"},
+                {"username": "meena_sharma", "password": "meena@2022", "secret_question": "What is your favorite childhood nickname?", "secret_answer": "Mona"},
+                {"username": "amit_delhi", "password": "amit1234", "secret_question": "What is your favorite food?", "secret_answer": "Paneer Tikka"},
+                {"username": "deepa_mumbai", "password": "deepa@789", "secret_question": "What is the name of your first pet?", "secret_answer": "Tommy"},
+                {"username": "arjun_bangalore", "password": "arjun@567", "secret_question": "What is your favorite holiday destination?", "secret_answer": "Goa"}
+            ];
+
+            var found = false;
+            var correctPassword = "";
+
+            for (var i = 0; i < users.length; i++) {
+                if (username === users[i].username && answer === users[i].secret_answer) {
+                    found = true;
+                    correctPassword = users[i].password;
+                    break;
+                }
+            }
+
+            if (found) {
+                document.getElementById('password').innerText = 'Your password is: ' + correctPassword;
+                document.getElementById('password').style.display = 'block';
+                document.getElementById('error-message').innerText = '';
+            } else {
+                document.getElementById('password').style.display = 'none';
+                document.getElementById('error-message').innerText = 'Incorrect answer';
+            }
+        });
+    </script>
+</body>
+</html>
+    <p>Remembered your password? <a href="login.html">Log in</a></p>
+</body>
+</html>

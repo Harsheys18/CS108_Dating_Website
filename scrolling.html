@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Scrolling Profiles</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Your CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('6.png'); /* Add your background image */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            border-radius: 80%;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            width: 400px; /* Adjust container width as needed */
+            height: 700px; /* Adjust container height as needed */
+        }
+
+        .profile {
+            flex: 0 0 auto;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-content {
+            max-width: 80%;
+            text-align: center;
+        }
+
+        .profile img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 50%;
+        }
+
+        .profile-details p {
+            margin: 5px 0;
+        }
+
+        .like-button {
+            background: none;
+            border: none;
+            font-size: 16px;
+            color: #ff3366;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .like-button i {
+            font-size: 30px;
+        }
+
+        .filter-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .filter-container select {
+            margin-right: 10px;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        .filter-container button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: rgb(219, 13, 126);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .nav-buttons {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .nav-buttons button {
+            margin-right: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: rgb(219, 13, 126);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="profileContainer">
+        <!-- Profiles will be loaded here using JavaScript -->
+    </div>
+
+    <div class="filter-container">
+        <select id="ageFilter">
+            <option value="">-- Select Age --</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+        </select>
+
+        <select id="yearFilter">
+            <option value="">-- Select Year --</option>
+            <option value="1st">1st</option>
+            <option value="2nd">2nd</option>
+            <option value="3rd">3rd</option>
+            <option value="4th">4th</option>
+        </select>
+
+        <select id="interestsFilter">
+            <option value="">-- Select Interests --</option>
+            <option value="Traveling">Traveling</option>
+            <option value="Movies">Movies</option>
+            <option value="Art">Art</option>
+            <option value="Technology">Technology</option>
+            <option value="Music">Music</option>
+            <option value="Sports">Sports</option>
+            <option value="Literature">Literature</option>
+            <option value="Fashion">Fashion</option>
+        </select>
+
+        <select id="hobbiesFilter">
+            <option value="">-- Select Hobbies --</option>
+            <option value="Reading">Reading</option>
+            <option value="Playing musical instruments">Playing musical instruments</option>
+            <option value="Cooking">Cooking</option>
+            <option value="Painting">Painting</option>
+            <option value="Gardening">Gardening</option>
+            <option value="Coding">Coding</option>
+            <option value="Watching YouTube/Instagram">Watching YouTube/Instagram</option>
+        </select>
+
+        <button onclick="applyFilters()">Apply Filters</button>
+    </div>
+
+    <div class="nav-buttons">
+        <button onclick="showPreviousProfile()">Previous</button>
+        <button onclick="showNextProfile()">Next</button>
+    </div>
+
+    <script>
+        let currentIndex = 0;
+        let profiles;
+        let filteredProfiles;
+
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('students.json')
+                .then(response => response.json())
+                .then(data => {
+                    profiles = data;
+                    applyFilters();
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        });
+
+        function showProfile(index) {
+            const profileContainer = document.getElementById('profileContainer');
+            profileContainer.innerHTML = '';
+
+            const profile = filteredProfiles[index];
+            const profileElement = document.createElement('div');
+            profileElement.classList.add('profile');
+
+            profileElement.innerHTML = `
+                <div class="profile-content">
+                    <img src="${profile.Photo}" alt="${profile.Name}">
+                    <div class="profile-details">
+                        <h2>${profile.Name}</h2>
+                        <p><strong>Roll Number:</strong> ${profile['IITB Roll Number']}</p>
+                        <p><strong>Year of Study:</strong> ${profile['Year of Study']}</p>
+                        <p><strong>Age:</strong> ${profile.Age}</p>
+                        <p><strong>Gender:</strong> ${profile.Gender}</p>
+                        <p><strong>Interests:</strong> ${profile.Interests.join(', ')}</p>
+                        <p><strong>Hobbies:</strong> ${profile.Hobbies.join(', ')}</p>
+                        <p><strong>Email:</strong> <a href="mailto:${profile.Email}">${profile.Email}</a></p>
+                        <button class="like-button" onclick="toggleLike(this)"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            `;
+
+            profileContainer.appendChild(profileElement);
+        }
+
+        function showNextProfile() {
+            currentIndex = (currentIndex + 1) % filteredProfiles.length;
+            showProfile(currentIndex);
+        }
+
+        function showPreviousProfile() {
+            currentIndex = (currentIndex - 1 + filteredProfiles.length) % filteredProfiles.length;
+            showProfile(currentIndex);
+        }
+
+        function toggleLike(button) {
+            button.querySelector('i').classList.toggle('fas'); // Toggle the filled heart icon
+        }
+
+        function applyFilters() {
+            const ageFilter = document.getElementById('ageFilter').value;
+            const yearFilter = document.getElementById('yearFilter').value;
+            const interestsFilter = document.getElementById('interestsFilter').value;
+            const hobbiesFilter = document.getElementById('hobbiesFilter').value;
+
+            filteredProfiles = profiles.filter(profile => {
+                return (
+                    (ageFilter === '' || profile.Age.toString() === ageFilter) &&
+                    (yearFilter === '' || profile['Year of Study'] === yearFilter) &&
+                    (interestsFilter === '' || profile.Interests.includes(interestsFilter)) &&
+                    (hobbiesFilter === '' || profile.Hobbies.includes(hobbiesFilter))
+                );
+            });
+
+            if (filteredProfiles.length > 0) {
+                currentIndex = 0;
+                showProfile(currentIndex);
+            } else {
+                alert('No matching profiles found!');
+            }
+        }
+    </script>
+</body>
+</html>

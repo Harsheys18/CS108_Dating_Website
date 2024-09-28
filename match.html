@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Match Page</title>
+    <style>
+        /* CSS styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('pic7.gif'); /* Change 'background.jpg' to your desired background image */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .match-container {
+            max-width: 800px; /* Adjust container width as needed */
+            padding: 20px;
+            background-color: rgba(235, 120, 185, 0.2);
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-top: 10px; /* Adjust margin-top to move the container down */
+        }
+
+        .match-details img {
+            display: block;
+            margin: 0 auto 20px;
+            width: 200px; /* Adjust image size as needed */
+            height: 200px;
+            border-radius: 50%;
+        }
+
+        .match-details h2 {
+            margin-bottom: 10px;
+        }
+
+        .match-details p {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<head>
+<body>
+     <!-- Background music -->
+     <audio autoplay loop>
+        <source src="musi.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    
+    <div class="match-container">
+    <div class="match-details">
+        <!-- Match details will be populated here dynamically using JavaScript -->
+    </div>
+
+    <script>
+        window.onload = function () {
+            // Retrieve match details from localStorage
+            const matchDetails = JSON.parse(localStorage.getItem('matchDetails'));
+
+            // Create HTML elements dynamically to display match details
+            const matchDetailsContainer = document.querySelector('.match-details');
+            matchDetailsContainer.innerHTML = `
+                <img src="${matchDetails.Photo}" alt="Match Photo">
+                <h2>${matchDetails.Name}</h2>
+                <p>Age: ${matchDetails.Age}</p>
+                <p>Gender: ${matchDetails.Gender}</p>
+                <p>Interests: ${matchDetails.Interests.join(', ')}</p>
+                <p>Hobbies: ${matchDetails.Hobbies.join(', ')}</p>
+                <p>Email: <a href="mailto:${matchDetails.Email}">${matchDetails.Email}</a></p>
+            `;
+        };
+    </script>
+</body>
+</html>

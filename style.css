@@ -1,0 +1,45 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url(pic7.png); /* Path to your image file */
+    background-size: cover; /* Adjusts the background image size to cover the entire viewport */
+    background-position: center; /* Centers the background image */
+    font-family: Arial, sans-serif; /* Example font family */
+}
+
+form {
+    max-width: 300px;
+    margin: 100px auto;
+    padding: 20px;
+    background-color: rgba(225, 143, 171, 0.5); /* Semi-transparent background color */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(116, 36, 36, 0.1);
+    color:rgb(211, 20, 77)
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid rgb(15, 22, 26);
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #e528a0;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #c3d5e9;
+}
